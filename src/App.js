@@ -1,15 +1,18 @@
 // src/App.js
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Login from './components/Login';
 import Profile from './components/Profile';
 import Dashboard from './components/Dashboard';
 import Layout from './components/Layout';
+import TodoList from './components/TodoList';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<Navigate to={"/login"} />} />
         <Route path="/login" element={<Login />} />
         <Route
           path="/profile"
@@ -20,11 +23,23 @@ function App() {
           }
         />
         <Route
+          path="/create-todo"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <TodoList />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/dashboard"
           element={
-            <Layout>
-              <Dashboard />
-            </Layout>
+            <ProtectedRoute>
+              <Layout>
+                <Dashboard />
+              </Layout>
+            </ProtectedRoute>
           }
         />
       </Routes>

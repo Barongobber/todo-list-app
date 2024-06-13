@@ -1,8 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const fetchTodos = createAsyncThunk('todos/fetchTodos', async () => {
-  const response = await axios.get('/api/todos');
+const API_URL = process.env.REACT_APP_API_URL;
+
+export const fetchTodos = createAsyncThunk('todos/fetchTodos', async (token) => {
+  const response = await axios.get(`${API_URL}/todo-list/read`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
   return response.data;
 });
 

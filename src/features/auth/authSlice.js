@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { loginUser, fetchUserProfile } from './authThunks';
+import { loginUser, fetchUserProfile, logoutUser } from './authThunks';
 
 const authSlice = createSlice({
   name: 'auth',
@@ -11,15 +11,20 @@ const authSlice = createSlice({
   },
   reducers: {
     logout: (state) => {
+      logoutUser();
+
       state.user = null;
       state.token = null;
+      state.status = 'logout';
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        state.token = action.payload.token;
+        const {user, api_token: apiToken} = action.payload;
+
+        state.user = user;
+        state.token = apiToken;
         state.status = 'succeeded';
       })
       .addCase(fetchUserProfile.fulfilled, (state, action) => {

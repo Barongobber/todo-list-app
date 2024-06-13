@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { List, ListItem, ListItemText, Drawer } from '@mui/material';
+import { List, ListItemText, Drawer, ListItemButton } from '@mui/material';
 
 const drawerWidth = 240;
 
@@ -15,12 +15,12 @@ const Sidebar = () => {
       }}
     >
       <List sx={{ pt: 10 }}>
-        <ListItem button component={Link} to="/dashboard">
+        <ListItemButton component={Link} to="/dashboard">
           <ListItemText primary="Dashboard" />
-        </ListItem>
-        <ListItem button component={Link} to="/profile">
+        </ListItemButton>
+        <ListItemButton component={Link} to="/profile">
           <ListItemText primary="Profile" />
-        </ListItem>
+        </ListItemButton>
       </List>
     </Drawer>
   );
