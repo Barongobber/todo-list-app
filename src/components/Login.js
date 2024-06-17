@@ -10,6 +10,7 @@ const Login = () => {
   const navigate = useNavigate();
   const auth = useSelector((state) => state.auth);
   const isDirectVisit = authService.isDirectVisited();
+  const isCredentialWrong = authService.isCredentialWrong();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -21,7 +22,8 @@ const Login = () => {
     <Container maxWidth="sm" className="bg-teal-50	 p-8 rounded shadow-md mt-16" sx={{
         boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);'
     }}>
-      { isDirectVisit && <Alert severity="warning">Please Login First!</Alert>}
+      { isCredentialWrong && <Alert severity='warning'>Please login using correct credentials</Alert> }
+      { isDirectVisit && !isCredentialWrong && <Alert severity="warning">Please Login First!</Alert>}
       <Box>
         <Typography variant="h4" sx={{ mb: 4 }}>Login</Typography>
         <form onSubmit={handleLogin}>

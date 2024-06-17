@@ -14,8 +14,10 @@ export const logoutUser = async () => {
 };
 
 export const fetchUserProfile = createAsyncThunk('auth/fetchUserProfile', async (token) => {
-  const response = await axios.get(`${API_URL}/user/read`, {
+  const response = await axios.get(`${API_URL}/admins/read`, {
     headers: { Authorization: `Bearer ${token}` },
   });
+
+  console.log(response);
   return response.data;
 });
